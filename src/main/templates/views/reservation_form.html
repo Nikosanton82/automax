@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block 'body' %}
+
+<div class="d-flex h-100 text-center text-white index">
+    
+    <div class="d-flex w-100 h-100 p-3 mx-auto flex-column main-content">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Coastal Travel & Cruises</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link active" aria-current="page" href="{% url 'main' %}">Home</a>
+                    <a class="nav-link" href="{% url 'tours' %}">Tours</a>
+                    <a class="nav-link" href="">Destinations</a>
+                    <a class="nav-link" href="{% url 'reservation' %}">How to Order</a>
+                    <a class="nav-link" href="">Contact Us</a>
+                </nav>
+            </div>
+        </header>
+        
+        <div class="container">
+            <h2>Reservation Form</h2>
+            <h3>For reservation please fill in the form:</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <p>Country Code: {{ form.country_code }} Mobile number: {{ form.mobile_number }}</p>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+
+        <footer class="mt-auto text-white-50">
+            <p>Copyright © {% now 'Y' %} <a href="{% url 'main' %}" class="text-white">Coastal Travel & Cruises</a> by <a href="https://sites.google.com/view/dr-nikolaos-antonakakis/"
+                    class="text-white">Nikolaos Antonakakis</a></p>
+        </footer>
+    </div>
+</div>
+
+    
+
+
+{% endblock %}
+{% block 'footer' %}
+   
+{% endblock  %}

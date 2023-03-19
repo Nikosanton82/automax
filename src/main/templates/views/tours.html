@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block 'body' %} 
+
+
+<!-- Cards Grid -->
+<section class="container my-5">
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card mb-3">
+                <h3 class="card-header">{{ item.header }}</h3>
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <h6 class="card-subtitle text-muted">{{ item.subtitle }}</h6>
+                </div>
+                <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.title }}">
+                <div class="card-body">
+                    <p class="card-text">{{ item.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for list_item in item.list_items %}
+                    <li class="list-group-item">{{ list_item }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="card-body">
+                    <a href="{{ item.link1_url }}" class="card-link">{{ item.link1_text }}</a>
+                    <a href="{{ item.link2_url }}" class="card-link">{{ item.link2_text }}</a>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ item.footer }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+  {% endblock %}
+
+{% block 'footer' %}
+   
+{% endblock  %}

@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block 'body' %} 
+    <!-- Hero Section -->
+    <div class="d-flex h-100 text-center text-white index">
+        <video autoplay muted loop id="myVideo">
+            <source src="{% static 'videos/beach4k.mp4' %}" type="video/mp4">
+            <!-- Credit: https://www.pexels.com/@kelly-l-1179532 (Pexels.com)-->
+        </video>
+        <div class="d-flex w-100 h-100 p-3 mx-auto flex-column main-content">
+            <header class="mb-auto">
+                <div>
+                    <h3 class="float-md-start mb-0">Coastal Travel & Cruises</h3>
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link active" aria-current="page" href="{% url 'main' %}">Home</a>
+                        <a class="nav-link" href="{% url 'tours' %}">Tours</a>
+                        <a class="nav-link" href="">Destinations</a>
+                        <a class="nav-link" href="{% url 'reservation' %}">How to Order</a>
+                        <a class="nav-link" href="">Contact Us</a>
+                    </nav>
+                </div>
+            </header>
+            <main class="px-3">
+                <h2>Discover Your Next Adventure!</h2>
+                <p class="lead">Experience unforgettable destinations </br> Coastal Travel & Cruises is the leading travel agency.</p>
+                <p class="lead">
+                    <a href=""
+                        class="btn btn-outline-light">Explore Destinations</a>
+                </p>
+            </main>
+            <footer class="mt-auto text-white-50">
+                <p>Copyright © {% now 'Y' %} <a href="" class="text-white">Coastal Travel & Cruises</a> by <a href="https://sites.google.com/view/dr-nikolaos-antonakakis/"
+                        class="text-white">Nikolaos Antonakakis</a></p>
+            </footer>
+        </div>
+    </div>
+    <!-- End of Hero Section -->
+
+    <!-- Add the remaining sections here -->
+    <!-- 3. Destinations -->
+    <section class="container my-5">
+        <div class="text-center">
+            <h3>Top Destinations</h3>
+            <p>Explore our handpicked selection of breathtaking destinations</p>
+        </div>
+        <div class="row mt-4">
+            {% for destination in destinations %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ destination.image_url }}" class="card-img-top" alt="{{ destination.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ destination.name }}</h5>
+                        <p class="card-text">{{ destination.description|truncatewords:20 }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="" class="btn btn-outline-primary">View All Destinations</a>
+        </div>
+    </section>
+    <!-- 4. Tours & Packages -->
+    <!-- 5. Special Offers -->
+    <!-- 6. Testimonials -->
+    <!-- 7. Newsletter Signup -->
+    <!-- 8. Contact Us -->
+
+{% endblock %}
+
+{% block 'footer' %}
+   
+{% endblock  %}
+
+
