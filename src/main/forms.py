@@ -1,32 +1,37 @@
 from django import forms
 from .models import Reservation
-from phonenumbers import COUNTRY_CODE_TO_REGION_CODE
+#from phonenumbers import COUNTRY_CODE_TO_REGION_CODE
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 
 # create a list of tuples for country codes, sorted by code number
-COUNTRY_CODES = sorted([(str(code), f"+{code}") for code in COUNTRY_CODE_TO_REGION_CODE.keys()])
+#COUNTRY_CODES = sorted([(str(code), f"+{code}") for code in COUNTRY_CODE_TO_REGION_CODE.keys()])
 
 
 class ReservationForm(forms.ModelForm):
     confirm_email = forms.EmailField(label='Confirm Email')
-    country_code = forms.ChoiceField(choices=COUNTRY_CODES, required=True, label='Country Tel. Code')
+    #country_code = forms.ChoiceField(choices=COUNTRY_CODES, required=True, label='Country Tel. Code')
+    phone_number = PhoneNumberField(
+        widget=PhoneNumberPrefixWidget(initial="US")
+    )
 
     class Meta:
         model = Reservation
-        fields = ['first_name', 'last_name', 'email', 'confirm_email', 'country_code', 'mobile_number']
+        fields = ['first_name', 'last_name', 'email', 'confirm_email', 'phone_number']
 
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
         confirm_email = cleaned_data.get('confirm_email')
-        mobile_number = cleaned_data.get('mobile_number')
-        country_code = cleaned_data.get('country_code')
+        #phone_number = cleaned_data.get('phone_number')
+        #country_code = cleaned_data.get('country_code')
 
         if email != confirm_email:
             raise forms.ValidationError('Emails do not match')
 
         # prepend country code to mobile number
-        cleaned_data['mobile_number'] = f"{country_code}{mobile_number}"
+        #cleaned_data['mobile_number'] = f"{country_code}{mobile_number}"
         return cleaned_data
 
     def save(self, commit=True):
